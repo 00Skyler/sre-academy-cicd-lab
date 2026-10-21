@@ -1,0 +1,37 @@
+# PLANTILLA DE ESTUDIANTES: VALIDACIÓN DE PULL REQUESTS
+# Copiar a .github/workflows/pr.yml en tu fork.
+# El código Python y pytest YA ESTÁN CONFIGURADOS.
+# Completa solamente los TODO de GitHub Actions.
+
+name: PR - Python Validation
+
+on:
+  pull_request:
+    # TODO 1: reemplaza CAMBIAR_RAMA por la rama de destino del PR.
+    branches: [CAMBIAR_RAMA]
+    # TODO 2: añade los eventos para actualizar y reabrir un PR.
+    types: [opened]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Pull Request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: python -m pip install -r requirements.txt
+
+      - name: Ejecutar las pruebas de todos los servicios
+        run: bash scripts/test.sh
+
+# PREGUNTA: ¿Por qué este workflow no debería desplegar a producción?
