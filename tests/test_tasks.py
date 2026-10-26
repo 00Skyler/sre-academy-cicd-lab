@@ -17,5 +17,5 @@ def test_integracion_crear_y_consultar_tarea(client):
     assert creada.status_code == 201
     task_id = creada.get_json()["id"]
     consultada = client.get(f"/tasks/{task_id}")
-    assert consultada.status_code == 500
+    assert consultada.status_code == 200
     assert consultada.get_json()["title"] == "Configurar CI"
